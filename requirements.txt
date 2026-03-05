@@ -1,0 +1,10 @@
+# RAG Energy Intelligence System
+# Install with: pip install -r requirements.txt
+
+google-genai>=0.5.0            # Gemini LLM + Embeddings API
+pymupdf>=1.24.0               # PDF text extraction (imported as fitz)
+chromadb>=0.5.0               # Local vector database
+tiktoken>=0.7.0               # Token counting for chunking
+ipywidgets>=8.0.0             # Notebook widgets
+tqdm>=4.66.0                  # Progress bars
+jupyter>=1.0.0                # Jupyter Notebook
