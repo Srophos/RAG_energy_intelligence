@@ -1,10 +1,10 @@
 # ⚡ EnergyRAG — Energy Document Intelligence
 
-> Ask natural language questions against your energy sector PDFs and get **precise, cited answers** — powered by Google Gemini 2.0 Flash, local embeddings, and ChromaDB.
+> Ask natural language questions against your energy sector PDFs and get **precise, cited answers** — powered by Google Gemini 2.5 Flash, local embeddings, and ChromaDB.
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat-square&logo=python)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.35%2B-red?style=flat-square&logo=streamlit)
-![Gemini](https://img.shields.io/badge/Gemini-2.0%20Flash-orange?style=flat-square&logo=google)
+![Gemini](https://img.shields.io/badge/Gemini-2.5%20Flash-orange?style=flat-square&logo=google)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
 ---
@@ -39,7 +39,7 @@ Every answer is:
 ```
 PDF Upload → PDFProcessor → TextChunker → GeminiEmbedder → VectorStore (ChromaDB)
                                                                       ↓
-User Question → GeminiEmbedder → VectorStore.search() → RAGChain → Gemini 2.0 Flash → Answer
+User Question → GeminiEmbedder → VectorStore.search() → RAGChain → Gemini 2.5 Flash → Answer
 ```
 
 | Component | Technology | Notes |
@@ -48,7 +48,7 @@ User Question → GeminiEmbedder → VectorStore.search() → RAGChain → Gemin
 | Chunking | tiktoken `cl100k_base` | 500 token window, 50 token overlap |
 | Embeddings | `sentence-transformers` `all-MiniLM-L6-v2` | Fully local, 384-dim, no API needed |
 | Vector Store | ChromaDB (cosine similarity) | Persistent on disk, survives restarts |
-| LLM | Google Gemini 2.0 Flash | 1 API call per question |
+| LLM | Google Gemini 2.5 Flash | 1 API call per question |
 | Frontend | Streamlit | Dark themed chatbot UI |
 
 ---
@@ -131,7 +131,7 @@ rag-energy-intelligence/
 1. **Embed** — user question is converted to a 384-dim vector
 2. **Search** — ChromaDB finds the top-K most similar chunks (cosine similarity)
 3. **Prompt** — chunks are formatted as labelled excerpts with doc/page/score
-4. **Generate** — Gemini 2.0 Flash produces a grounded answer at temperature 0
+4. **Generate** — Gemini 2.5 Flash produces a grounded answer at temperature 0
 
 ### Why local embeddings?
 
@@ -145,7 +145,7 @@ All tunable parameters are at the top of `app.py`:
 
 ```python
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"   # local embedding model
-LLM_MODEL       = "gemini-2.0-flash"   # Gemini generation model
+LLM_MODEL       = "gemini-2.5-flash"   # Gemini generation model
 CHROMA_PATH     = "./chroma_db"         # vector store location
 CHUNK_SIZE      = 500                   # tokens per chunk
 CHUNK_OVERLAP   = 50                    # overlap between chunks
@@ -158,7 +158,7 @@ TOP_K           = 5                     # chunks retrieved per query (UI: 3–10
 
 | Model | Requests/min | Requests/day |
 |---|---|---|
-| gemini-2.0-flash | 15 RPM | 1,500 RPD |
+| gemini-2.5-flash | 15 RPM | 1,500 RPD |
 
 Each question = 1 API call. At 5 questions/minute you will never hit the limit.
 
@@ -198,20 +198,6 @@ system.ask("What maintenance was performed on Alpha Platform?")
 | `HLD_EnergyRAG.pdf` | System architecture, data flow, non-functional requirements |
 | `LLD_EnergyRAG.pdf` | Class specs, method signatures, prompt design, cache architecture |
 
----
-
-## .gitignore
-
-```gitignore
-chroma_db/
-__pycache__/
-*.pyc
-.env
-*.egg-info/
-.DS_Store
-```
-
----
 
 ## Built With
 
@@ -223,5 +209,3 @@ __pycache__/
 - [tiktoken](https://github.com/openai/tiktoken) — token counting
 
 ---
-
-*Built as a Gen AI university assignment — RAG system for energy document intelligence.*
