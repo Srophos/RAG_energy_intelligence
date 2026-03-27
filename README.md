@@ -158,9 +158,8 @@ TOP_K           = 5                     # chunks retrieved per query (UI: 3–10
 
 | Model | Requests/min | Requests/day |
 |---|---|---|
-| gemini-2.5-flash | 15 RPM | 1,500 RPD |
+| gemini-2.5-flash | 15 RPM | 100 RPD |
 
-Each question = 1 API call. At 5 questions/minute you will never hit the limit.
 
 ---
 
@@ -190,14 +189,6 @@ system.ask("What maintenance was performed on Alpha Platform?")
 ```
 
 ---
-
-## Design Documents
-
-| Document | Description |
-|---|---|
-| `HLD_EnergyRAG.pdf` | System architecture, data flow, non-functional requirements |
-| `LLD_EnergyRAG.pdf` | Class specs, method signatures, prompt design, cache architecture |
-
 
 ## Built With
 
